@@ -286,12 +286,16 @@ function ConvertFrom-ZabbixResponse
         $Property = @{}
         $Property['Success'] = $Data.response -match $ResponseSuccessPattern
 
-        if ($Data.info -match $ResponseInfoPattern)
+        if ($Property['Success'] -and ($Data.info -match $ResponseInfoPattern))
         {
             $Property['Processed'] = $Matches['processed']
             $Property['Failed'] = $Matches['failed']
             $Property['Total'] = $Matches['total']
             $Property['Spent'] = $Matches['spent']
+        }
+        else
+        {
+            $Property['Info'] = $Data['info']
         }
 
         New-Object -TypeName PSObject -Property $Property
