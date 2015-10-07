@@ -105,13 +105,10 @@ function Get-ZabbixSendBuffer
         }
 
         $Utf8NoBomEncoding = New-Object -TypeName System.Text.UTF8Encoding -ArgumentList $false
-
         $Header = $Utf8NoBomEncoding.GetBytes((Get-ZabbixBufferHeader)) + 1
-        
-        $Length = [BitConverter]::GetBytes([Long] $Json.Length)
-        Write-Verbose "Length of data: $Length bytes"
-        
         $Data = $Utf8NoBomEncoding.GetBytes($Json)
+                
+        $Length = [BitConverter]::GetBytes([Long] $Data.Length)
 
         return $Header + $Length + $Data
     }
