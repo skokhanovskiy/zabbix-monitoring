@@ -286,7 +286,7 @@ function ConvertFrom-ZabbixResponse
         $Property = @{}
         $Property['Success'] = $Data.response -match $ResponseSuccessPattern
 
-        if ($Property['Success'] -and ($Data.info -match $ResponseInfoPattern))
+        if ($Data.info -match $ResponseInfoPattern)
         {
             $Property['Processed'] = $Matches['processed']
             $Property['Failed'] = $Matches['failed']
