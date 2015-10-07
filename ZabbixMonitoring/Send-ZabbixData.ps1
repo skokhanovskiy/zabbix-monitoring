@@ -86,7 +86,7 @@ function Get-ZabbixSendBuffer
 
         $Data = @{
             $ZabbixJsonRequest = $ZabbixJsonSenderData
-            $ZabbixJsonData = $Data
+            $ZabbixJsonData = @($Data)
         }
 
         if ($Timestamped)
