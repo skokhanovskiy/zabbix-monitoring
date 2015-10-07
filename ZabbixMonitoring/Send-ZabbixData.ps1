@@ -40,15 +40,14 @@ function Add-ZabbixDataTimestamp
                     break
                 }
             }
-            if ($TimestampedValue)
+            
+            foreach ($D in $Data)
             {
-                foreach ($D in $Data)
+                if ($TimestampedValue -and (-not $D[$ZabbixJsonTimestamp]))
                 {
-                    if (-not $D[$ZabbixJsonTimestamp])
-                    {
-                        $D[$ZabbixJsonTimestamp] = Get-UnixDate
-                    }
+                    $D[$ZabbixJsonTimestamp] = Get-UnixDate
                 }
+                $D
             }
         }
         
@@ -56,8 +55,6 @@ function Add-ZabbixDataTimestamp
         {
             $Timestamped.Value = $TimestampedValue
         }
-
-        return $Data
     }
 }
 
@@ -89,16 +86,23 @@ function Get-ZabbixSendBuffer
 
         $Data = @{
             $ZabbixJsonRequest = $ZabbixJsonSenderData
-            $ZabbixJsonData = @($Data)
+            $ZabbixJsonData = $Data
         }
 
         if ($Timestamped)
         {
             $Data[$ZabbixJsonTimestamp] = Get-UnixDate
         }
-
-        $Json = $Data | ConvertTo-Json -Compress
-        Write-Verbose "JSON message: $Json"
+        
+        try
+        {
+            $Json = $Data | ConvertTo-Json -Compress
+            Write-Verbose "JSON message: $Json"
+        }
+        catch
+        {
+            throw $_
+        }
 
         $Utf8NoBomEncoding = New-Object -TypeName System.Text.UTF8Encoding -ArgumentList $false
 
@@ -150,7 +154,7 @@ function ReceiveFrom-Socket
         }
         catch [Net.Sockets.SocketException]
         {
-            if ($_.SocketErrorCode -in ([Net.Sockets.SocketError]::WouldBlock, [Net.Sockets.SocketError]::IOPending, [Net.Sockets.SocketError]::NoBufferSpaceAvailable))
+            if (([Net.Sockets.SocketError]::WouldBlock, [Net.Sockets.SocketError]::IOPending, [Net.Sockets.SocketError]::NoBufferSpaceAvailable) -contains $_.SocketErrorCode)
             {
                 Start-Sleep -Milliseconds 30
             }
@@ -366,8 +370,3 @@ function Send-ZabbixData
         }
     }
 }
-
-
-
-
-
