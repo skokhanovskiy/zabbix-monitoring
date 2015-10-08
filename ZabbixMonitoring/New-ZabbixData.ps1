@@ -3,16 +3,16 @@
     [CmdletBinding()]
     param
     (
-        [Parameter(Mandatory = $true, Position = 0)]
+        [Parameter(Position = 0, Mandatory = $true)]
         [String]
         $HostName,
 
-        [Parameter(Mandatory = $true, Position = 1)]
+        [Parameter(Position = 1, Mandatory = $true)]
         [String]
         $Key,
 
-        [Parameter(Mandatory = $true, Position = 2)]
-        [String]
+        [Parameter(Position = 2, ValueFromPipeLine = $true)]
+        [String[]]
         $Value,
 
         [Parameter(Position = 3)]
@@ -20,15 +20,24 @@
         $Timestamp
     )
 
-    $Item = @{
-        $ZabbixJsonHost = $HostName
-        $ZabbixJsonKey = $Key
-        $ZabbixJsonValue = $Value
-    }
-    if ($Timestamp)
+    process
     {
-        $Item[$ZabbixJsonTimestamp] = $Timestamp | Get-UnixDate
-    }
+        if ($Value)
+        {
+            foreach ($V in $Value)
+            {
+                $Item = @{
+                    $ZabbixJsonHost = $HostName
+                    $ZabbixJsonKey = $Key
+                    $ZabbixJsonValue = $V
+                }
+                if ($Timestamp)
+                {
+                    $Item[$ZabbixJsonTimestamp] = $Timestamp | Get-UnixDate
+                }
 
-    return $Item
+                $Item
+            }
+        }
+    }
 }
