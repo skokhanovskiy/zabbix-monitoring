@@ -29,7 +29,7 @@
                     foreach ($P in $Property)
                     {
                         $Key = $ZabbixJsonDiscoveryKey -f $P.ToUpper()
-                        $Element[$Key] = $Obj.$P
+                        $Element[$Key] = [String] $Obj.$P
                     }
 
                     $Element
