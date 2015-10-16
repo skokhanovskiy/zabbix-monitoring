@@ -1,4 +1,25 @@
-﻿function Convert-Encoding
+﻿<#
+.SYNOPSIS 
+    Converts string encoding
+.DESCRIPTION
+    The Convert-Encoding cmdlet converts code page of string from one encoding to another
+.PARAMETER From
+    Source code page
+.PARAMETER To
+    Destination code page
+.EXAMPLE
+    'This is string' | Convert-Encoding -From CP866 -To UTF-8
+    Converts encoding of string from CP866 to UTF-8
+.INPUTS
+    System.String
+.OUTPUTS
+    System.String
+.NOTES
+    Full list of supported code page names here:
+    
+    https://msdn.microsoft.com/ru-ru/library/system.text.encoding(v=vs.110).aspx
+#>
+function Convert-Encoding
 {
     [CmdletBinding()]
     param
