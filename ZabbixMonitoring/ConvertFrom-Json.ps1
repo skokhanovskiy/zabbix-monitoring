@@ -6,7 +6,7 @@
 
     This function should be used in Powershell 2.0 that does not have the cmdlets for processing JSON data. In Povershell 3.0 and later there is standart ConvertFrom-Json cmdlet that should be used instead.
 
-    This function does not fully supports powershell objects and it should be used very carefully.
+    This function does not fully supports powershell objects and should be used very carefully.
 .PARAMETER InputObject
     Specifies the JSON strings to convert to JSON objects.
 .EXAMPLE
@@ -15,7 +15,7 @@
     ---                                                      -----                                                   
     data                                                     value
 
-    ConvertTo-Json cmdlets convert the hashtable value to a JSON-formatted string and the ConvertFrom-Json cmdlet converts the JSON-formatted string to object
+    ConvertTo-Json cmdlets convert the hashtable value to a JSON-formatted string and the ConvertFrom-Json cmdlet converts the JSON-formatted string to object.
 .INPUTS
     System.String
 .OUTPUTS
