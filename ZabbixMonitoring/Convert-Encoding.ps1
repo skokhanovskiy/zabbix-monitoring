@@ -10,6 +10,9 @@
 .EXAMPLE
     'This is string' | Convert-Encoding -From CP866 -To UTF-8
     Converts encoding of string from CP866 to UTF-8
+.EXAMPLE
+    'This is another string' | Convert-Encoding -To windows-1251
+    Converts code page of string from default console encoding to windows-1251
 .INPUTS
     System.String
 .OUTPUTS
