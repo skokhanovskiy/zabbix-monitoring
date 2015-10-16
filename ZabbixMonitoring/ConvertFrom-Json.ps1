@@ -15,7 +15,7 @@
     ---                                                      -----                                                   
     data                                                     value
 
-    ConvertTo-Json cmdlets convert the hashtable value to a JSON-formatted string and the ConvertFrom-Json cmdlet converts the JSON-formatted string to object.
+    ConvertTo-Json function convert the hashtable value to a JSON-formatted string and the ConvertFrom-Json cmdlet converts the JSON-formatted string to object.
 .INPUTS
     System.String
 .OUTPUTS
