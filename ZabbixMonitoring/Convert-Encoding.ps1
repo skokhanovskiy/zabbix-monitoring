@@ -2,7 +2,7 @@
 .SYNOPSIS 
     Converts string encoding
 .DESCRIPTION
-    The Convert-Encoding cmdlet converts code page of string from one encoding to another
+    The Convert-Encoding function converts code page of string from one encoding to another
 .PARAMETER From
     Source code page
 .PARAMETER To
