@@ -9,7 +9,7 @@
 
         [Parameter(Position = 1)]
         [Int]
-        $Height
+        $Height = $Host.UI.RawUI.BufferSize.Width
     )
 
     if (-not $Height)
