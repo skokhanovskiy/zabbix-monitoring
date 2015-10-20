@@ -32,7 +32,7 @@
 
     Converts the service objects to hashtable with zabbix data that containts status of last 3 services from Get-Service output.
 
-    Last New-Object in the pipe formats output only.
+    Last New-Object in the pipe just to format output only.
 .INPUTS
     System.Object
 .OUTPUTS

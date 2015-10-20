@@ -9,9 +9,15 @@
     'ZabbixJsonDiscoveryKey' = '{{#{0}}}'
 }
 
+$GlobalConstant += @{
+    'ZabbixMappingProperty'    = 'Property'
+    'ZabbixMappingKey'         = 'Key'
+    'ZabbixMappingKeyProperty' = 'KeyProperty'
+}
+
 foreach ($Constant in $GlobalConstant.GetEnumerator())
 {
-    Set-Variable -Scope Global -Option ReadOnly -Name $Constant.Key -Value $Constant.Value
+    Set-Variable -Scope Global -Option ReadOnly -Name $Constant.Key -Value $Constant.Value -Force
 }
 
 $ExportFunction = (
