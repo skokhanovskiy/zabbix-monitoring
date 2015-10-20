@@ -1,4 +1,20 @@
-﻿function Expand-HostSize
+﻿<#
+.SYNOPSIS 
+    Expands console buffer size
+.DESCRIPTION
+    The Expand-HostSize function change width and height of buffer for the host of console.
+
+    This can be useful to avoid newline characters in the long text console output.
+.PARAMETER Width
+    Specifies the width of the console buffer. Default value is 32766, maximal allowed.
+.PARAMETER Height
+    Specifies the height of the console buffer. Default value is current buffer height.
+.EXAMPLE
+    Expand-HostSIze
+    
+    Expands console buffer width to the maximal allowed value.
+#>
+function Expand-HostSize
 {
     [CmdletBinding()]
     param
