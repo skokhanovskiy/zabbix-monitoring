@@ -4,14 +4,16 @@
 .DESCRIPTION
     The Convert-Encoding function converts code page of string from one encoding to another
 .PARAMETER From
-    Source code page
+    Specifies a source code page
 .PARAMETER To
-    Destination code page
+    Specifies a destination code page
 .EXAMPLE
     'This is string' | Convert-Encoding -From CP866 -To UTF-8
+
     Converts encoding of string from CP866 to UTF-8
 .EXAMPLE
     'This is another string' | Convert-Encoding -To windows-1251
+
     Converts code page of string from default console encoding to windows-1251
 .INPUTS
     System.String
