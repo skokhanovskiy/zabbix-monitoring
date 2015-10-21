@@ -14,7 +14,7 @@
 .EXAMPLE
     New-ZabbixData 'MYSQL1' 'mysql.queries' '347.4' | Send-ZabbixData 'zabbix'
 
-    New-ZabbixData function creates the zabbix data item with '347.4' as value for 'mysql.queries' key in 'MYSQL1' host. Send-ZabbixData function sends this value to zabbix server.
+    The New-ZabbixData function creates the zabbix data item with '347.4' as value for 'mysql.queries' key in 'MYSQL1' host. The Send-ZabbixData function sends this value to zabbix server with name 'zabbix'.
 .INPUTS
     System.String
 .OUTPUTS

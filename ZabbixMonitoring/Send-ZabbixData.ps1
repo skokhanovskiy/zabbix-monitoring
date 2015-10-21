@@ -1,8 +1,34 @@
-﻿function Get-ZabbixBufferHeader
+﻿<#
+.SYNOPSIS 
+    Gets zabbix header for buffer of message
+.DESCRIPTION
+    The Get-ZabbixBufferHeader function gets zabbix header for buffer of message
+.OUTPUTS
+    System.String
+.LINKS
+    Send-ZabbixData
+#>
+function Get-ZabbixBufferHeader
 {
     return "ZBXD"
 }
 
+<#
+.SYNOPSIS 
+    Adds timestamp for zabbix data
+.DESCRIPTION
+    The Add-ZabbixDataTimestamp function checks whether the timestamp in at least one item of zabbix data. If found, it adds the timestamp with the current time value to all values that do not contain the timestamp. If not found, do nothing.
+.PARAMETER InputObject
+    Specifies the hashtable with zabbix data.
+.PARAMETER Timestamped
+    Specifies a reference to a variable of boolean type. There are items in zabbix data with a timestamp if its value is true.
+.INPUTS
+    System.Collections.Hashtable
+.OUTPUTS
+    System.Collections.Hashtable
+.LINKS
+    Send-ZabbixData
+#>
 function Add-ZabbixDataTimestamp
 {
     [CmdletBinding()]
@@ -58,6 +84,20 @@ function Add-ZabbixDataTimestamp
     }
 }
 
+<#
+.SYNOPSIS 
+    Gets buffer with zabbix data to send.
+.DESCRIPTION
+    The Get-ZabbixSendBuffer function gets buffer of bytes with zabbix data to send to remote zabbix server.
+.PARAMETER InputObject
+    Specifies the hashtable with zabbix data.
+.INPUTS
+    System.Collections.Hashtable
+.OUTPUTS
+    System.Array
+.LINKS
+    Send-ZabbixData
+#>
 function Get-ZabbixSendBuffer
 {
     [CmdletBinding()]
@@ -114,6 +154,24 @@ function Get-ZabbixSendBuffer
     }
 }
 
+<#
+.SYNOPSIS 
+    Receives data from socket.
+.DESCRIPTION
+    The ReceiveFrom-Socket function recieves buffer of bytes from network socket.
+.PARAMETER Socket
+    Specifies the System.Net.Sockets.Socket object.
+.PARAMETER Size
+    Specifies the size of buffer to recieve.
+.PARAMETER Offset
+    Specifies the offset in buffer in bytes. Default value is 0.
+.PARAMETER
+    Specifies the timeout of reading in miliseconds. Default value is 10000.
+.OUTPUTS
+    System.Array
+.LINKS
+    Send-ZabbixData
+#>
 function ReceiveFrom-Socket
 {
     [CmdletBinding()]
@@ -171,6 +229,26 @@ function ReceiveFrom-Socket
     }
 }
 
+<#
+.SYNOPSIS 
+    Receives a response from zabbix server.
+.DESCRIPTION
+    The Receive-ZabbixResponse function recieves and process a response from zabbix server.
+.PARAMETER Socket
+    Specifies the System.Net.Sockets.Socket object.
+.PARAMETER Header
+    Receives a header.
+.PARAMETER DataLength
+    Receives a length of data.
+.PARAMETER Data
+    Receives a data.
+.PARAMETER Length
+    Specifies the length of data.
+.OUTPUTS
+    System.Array
+.LINKS
+    Send-ZabbixData
+#>
 function Receive-ZabbixResponse
 {
     [CmdletBinding()]
@@ -259,6 +337,20 @@ function Receive-ZabbixResponse
     }        
 }
 
+<#
+.SYNOPSIS 
+    Converts a data from zabbix response to object.
+.DESCRIPTION
+    The Get-ZabbixSendBuffer function converts a data from response of zabbix server to object.
+.PARAMETER InputObject
+    Specifies the response data.
+.INPUTS
+    System.Array
+.OUTPUTS
+    System.Collections.Hashtable
+.LINKS
+    Send-ZabbixData
+#>
 function ConvertFrom-ZabbixResponse
 {
     [CmdletBinding()]
@@ -301,6 +393,37 @@ function ConvertFrom-ZabbixResponse
     }
 }
 
+<#
+.SYNOPSIS 
+    Sends a data to the zabbix server
+.DESCRIPTION
+    The Send-ZabbixData function sends a data to the remote zabbix server
+.PARAMETER InputObject
+    Specifies the hashtable with data to send. 
+
+    The hashtable must contain the following keys: 'host' with value of host name, 'key' with value of zabbix item key and 'value' with item's value. The hashtable may contain 'clock' key with timestamp for value in unix time format.
+
+    The hashtable for this parameter can be easily created using the New-ZabbixData or ConvertTo-ZabbixData functions.
+.PARAMETER Server
+    Specifies the name of the zabbix server or zabbix proxy.
+.PARAMETER Port
+    Specifies an alternate port on the zabbix server. The default value is 10051, which is the default zabbix port.
+.EXAMPLE
+    New-ZabbixData 'MYSQL1' 'mysql.queries' '347.4' | Send-ZabbixData 'zabbix'
+
+    The New-ZabbixData function creates the zabbix data item with '347.4' as value for 'mysql.queries' key in 'MYSQL1' host. The Send-ZabbixData function sends this value to zabbix server with name 'zabbix'.
+.INPUTS
+    System.Collections.Hashtable
+.OUTPUTS
+    System.Collections.Hashtable
+.LINKS
+    New-ZabbixData
+    ConvertTo-ZabbixData
+.NOTES
+    https://www.zabbix.com/documentation/2.4/manual/concepts/sender
+    https://www.zabbix.com/documentation/2.4/manpages/zabbix_sender
+    https://www.zabbix.org/wiki/Docs/protocols/zabbix_sender/2.0
+#>
 function Send-ZabbixData
 {
     [CmdletBinding()]
