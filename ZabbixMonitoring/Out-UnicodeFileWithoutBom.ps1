@@ -1,4 +1,22 @@
-﻿function Out-UnicodeFileWithoutBom
+﻿<#
+.SYNOPSIS 
+    Sends output to a UTF-8 file without BOM
+.DESCRIPTION
+    The Out-UnicodeFileWithoutBom function sends output to a file encoded in UTF8 without byte order mark (BOM).
+
+    Standart powershell cmdlet Out-File does not support UTF8 without BOM encoding.
+.PARAMETER InputObject
+    Specifies the objects to be written to the file.
+.PARAMETER FilePath
+    Specifies the path to the output file.
+.EXAMPLE
+    'Some text' | Out-UnicodeFileWithoutBom 'output.txt'
+
+    Creates file 'output.txt' without BOM and with UTF-8 encoded content 'Some text'.
+.INPUTS
+    System.Object
+#>
+function Out-UnicodeFileWithoutBom
 {
     [CmdletBinding()]
     param

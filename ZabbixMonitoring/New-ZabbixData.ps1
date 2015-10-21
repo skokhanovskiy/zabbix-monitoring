@@ -4,13 +4,13 @@
 .DESCRIPTION
     The New-ZabbixData function creates a hashtable with required information for sending to zabbix.
 .PARAMETER HostName
-    Specifies the monitored host name as registered in Zabbix frontend
+    Specifies the monitored host name as registered in Zabbix frontend.
 .PARAMETER Key
-    Specifies the key of zabbix item
+    Specifies the key of zabbix item.
 .PARAMETER HostName
-    Specifies the value of zabbix item
+    Specifies the value of zabbix item.
 .PARAMETER TimeStamp
-    Specifies the timestamp for a value
+    Specifies the timestamp for a value.
 .EXAMPLE
     New-ZabbixData 'MYSQL1' 'mysql.queries' '347.4' | Send-ZabbixData 'zabbix'
 

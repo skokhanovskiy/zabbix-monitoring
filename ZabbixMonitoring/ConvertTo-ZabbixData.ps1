@@ -12,7 +12,7 @@
 
     Each hashtable should contain the "$ZabbixMappingProperty" key with value of object's property name and "$ZabbixMappingKey" key with value of zabbix item key.
 
-    A hashtable may contain "$ZabbixMappingKeyProperty" key with one or few property names that will be formatted by -f operator with "$ZabbixMappingKey" value.
+    A hashtable may contain "$ZabbixMappingKeyProperty" key with property names that values will be formatted by -f operator with "$ZabbixMappingKey" value.
 .EXAMPLE
     Get-Service -Name wuauserv | ConvertTo-ZabbixData -HostName $env:COMPUTERNAME -PropertyMapping @{'Property' = 'Status'; 'Key' = 'windowsupdate[state]'}
     Name                           Value                                                                                                                                                                                                                             
