@@ -27,7 +27,8 @@ $ExportFunction = (
     'Expand-HostSize',
     'Send-ZabbixData',
     'New-ZabbixData',
-    'Get-UnixDate'
+    'Get-UnixDate',
+    'ConvertTo-ZabbixData'
 )
 
 if ($Host.Version.Major -le 2)
