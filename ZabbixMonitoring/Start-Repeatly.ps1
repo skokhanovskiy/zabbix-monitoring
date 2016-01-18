@@ -43,7 +43,7 @@ function Start-Repeatly
     }
 
     $CmdletStartTime = Get-Date
-    Write-Verbose "Cmndlet start time: $CmdletStartTime"
+    Write-Debug "Cmndlet start time: $CmdletStartTime"
 
     if ($Duration -gt 0)
     {
@@ -53,7 +53,7 @@ function Start-Repeatly
     {
         $CmdletEndTime = [DateTime]::MaxValue
     }
-    Write-Verbose "Cmndlet end time: $CmdletEndTime"
+    Write-Debug "Cmndlet end time: $CmdletEndTime"
 
     $Counter = 0
 
@@ -88,7 +88,7 @@ function Start-Repeatly
             $ExecuteStartTime = Get-Date
         }
 
-        Write-Verbose "Next start at $ExecuteStartTime" 
+        Write-Debug "Next start at $ExecuteStartTime" 
 
         if ($ExecuteStartTime -ge $CmdletEndTime)
         {
@@ -100,7 +100,7 @@ function Start-Repeatly
 
             if ($SleepTime -ge 0)
             {
-                Write-Verbose "Start sleeping $SleepTime ms"
+                Write-Debug "Start sleeping $SleepTime ms"
                 Start-Sleep -Milliseconds $SleepTime
             }
         }

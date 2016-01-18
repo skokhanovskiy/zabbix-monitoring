@@ -122,7 +122,7 @@ function Get-ZabbixSendBuffer
     {
         $Timestamped = $false
         $Data = $Data | Add-ZabbixDataTimestamp -Timestamped ([Ref] $Timestamped)
-        Write-Verbose "Timestamped: $Timestamped"
+        Write-Debug "Timestamped: $Timestamped"
 
         $Data = @{
             $ZabbixJsonRequest = $ZabbixJsonSenderData
@@ -137,7 +137,7 @@ function Get-ZabbixSendBuffer
         try
         {
             $Json = $Data | ConvertTo-Json -Compress
-            Write-Verbose "JSON message: $Json"
+            Write-Debug "JSON message: $Json"
         }
         catch
         {
@@ -308,7 +308,7 @@ function Receive-ZabbixResponse
             }
             else
             {
-                Write-Verbose "Valid header in response"
+                Write-Debug "Valid header in response"
                 $HeaderValue
             }
         }
@@ -322,7 +322,7 @@ function Receive-ZabbixResponse
             }
             else
             {
-                Write-Verbose "Length of data in response: $DataLengthValue"
+                Write-Debug "Length of data in response: $DataLengthValue"
                 $DataLengthValue
             }
         }
@@ -330,7 +330,7 @@ function Receive-ZabbixResponse
         {
             $Utf8NoBomEncoding = New-Object -TypeName System.Text.UTF8Encoding -ArgumentList $false
             $DataValue = $Utf8NoBomEncoding.GetString($Buffer)
-            Write-Verbose "Response JSON: $DataValue"
+            Write-Debug "Response JSON: $DataValue"
 
             $DataValue
         }
@@ -460,10 +460,10 @@ function Send-ZabbixData
         }
         else
         {
-            Write-Verbose "Number of items: $(($SendData | Measure-Object).Count)"
+            Write-Debug "Number of items: $(($SendData | Measure-Object).Count)"
 
             $SendBuffer = $SendData | Get-ZabbixSendBuffer
-            Write-Verbose "Length of buffer to send: $($SendBuffer.Length) bytes"
+            Write-Debug "Length of buffer to send: $($SendBuffer.Length) bytes"
 
             $Client = New-Object -TypeName Net.Sockets.Socket -ArgumentList (
                 [System.Net.Sockets.AddressFamily]::InterNetwork, 
